@@ -1,0 +1,87 @@
+.navbar-inverse .navbar-nav>li>a {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: #e6e6e6;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+
+  background-color: #022937;
+}
+
+.nav>li:hover {
+  position: relative;
+  display: block;
+  background-color: #022937;
+}
+
+.navbar {
+  margin-bottom: 0px;
+  border: 0px;
+  background-color: #073F54;
+  border-radius: 0px;
+}
+
+.navbar-inverse .navbar-brand .navbar-inverse,
+.navbar-nav>li>a {
+  color: #fff;
+  font-size: 17px;
+}
+
+.modal-dialog {
+  position: relative;
+  display: table;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: auto;
+  min-width: 300px;
+  text-align: center;
+}
+
+input {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.form-control {
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  min-width: 0;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  width: auto;
+}
+
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid #1DB9F3;
+}
+
+.btn-default {
+  border-radius: 0px;
+  background-color: #0EA4B8;
+  color: #fff;
+  border-color: none;
+}
+
+.btn-default:hover {
+  color: #fff;
+  background-color: #20BCD1;
+}
+
+.navbar-brand > img {
+  height: 100px;
+  width: 120px;
+  margin-top: -40px;
+}

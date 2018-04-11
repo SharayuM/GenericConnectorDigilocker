@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SIH 2018</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/general.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <link rel="stylesheet" href="/static/css/profile.css">
+  <script src="/static/js/navbar.js"></script>
+</head>
+
+<body>
+
+
+ <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png" width="150" height="30" alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="/index">Home</a></li>
+          <li><a href="/applicantdetails">Applicant Details</a></li>
+          <li><a href="/status">Status</a></li>
+          <li><a href="/jobopenings">Job Openings</a></li>
+         <li><a href="/viewsavejob">Saved Jobs</a></li>
+          <li><a href="/meetourteam">About Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           {% if uname %}
+          <li class="active"><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> {{ uname }}</a></li>
+
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                {% else %}
+                          <li><a href="#" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+
+                                <li><a href="#" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 ">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>User Profile</h4></div>
+          <div class="panel-body">
+            {% if user %}
+            <div class="box box-info">
+
+              <div class="box-body">
+                <div class="col-sm-6">
+
+                  <div align="center"> <img alt="User Pic" src="/static/SIHImages/{{uname}}_profile.jpg" id="profile-image1" class="img-circle img-responsive">
+                    <input id="profile-image-upload" class="hidden" type="file">
+                  </div>
+                  <br>
+                </div>
+                <div class="col-sm-6">
+                  <h4>Hello,</h4></span>
+                  <span><p>{{user.first_name}} {{user.middle_name}} {{user.last_name}}</p></span>
+                  <br>
+                  <br>
+                  <a href="/applicantdetails"> Edit profile</a>
+                </div>
+                <br>
+                <div class="clearfix"></div>
+                <br>
+                <hr style="margin:5px 0 5px 0;">
+                <br>
+                <div class="rows-incenter">
+                <div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+                <div class="col-sm-7 col-xs-6 ">{{user.first_name}}</div>
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+
+                <div class="col-sm-5 col-xs-6 tital ">Middle Name:</div>
+                <div class="col-sm-7">{{user.middle_name}}</div>
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+
+                <div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+                <div class="col-sm-7">{{user.last_name}}</div>
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+
+                <div class="col-sm-5 col-xs-6 tital ">Permanent Address:</div>
+                <div class="col-sm-7">{{user.address}}</div>
+
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+
+                <div class="col-sm-5 col-xs-6 tital ">Country:</div>
+                <div class="col-sm-7">India</div>
+
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+
+                <div class="col-sm-5 col-xs-6 tital ">State:</div>
+                <div class="col-sm-7">{{user.state}}</div>
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+                <div class="col-sm-5 col-xs-6 tital ">Gender:</div>
+                <div class="col-sm-7">{{user.gender}}</div>
+                <div class="clearfix"></div>
+                <div class="bot-border"></div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer font-small unique-color-dark pt-0 fixed-bottom">
+    <div class="container mt-5 mb-4 text-md-left">
+      <div class="row mt-3">
+        <br/>
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>SIH 2018</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Products</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://www.nielit.gov.in/content/acts-rules">Act and Rules</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/mou-industry-academic-institutions-universities">MoUs</a>
+          </p>
+          <p>
+            <a href="jobopenings.html">Opportunities</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/node/2361">Grievance</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/right-information-1">RTI</a>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Useful links</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://meity.gov.in/">meity.gov.in</a>
+          </p>
+          <p>
+            <a href="https://india.gov.in/">india.gov.in</a>
+          </p>
+          <p>
+            <a href="https://www.mygov.in/">mygov.in</a>
+          </p>
+          <p>
+            <a href="https://mail.gov.in/iwc_static/c11n/allDomain/layout/login_gov2.jsp?lang=en-US&3.0.1.2.0_15121607&svcs=abs,mail,smime,calendar,c11n">mail.mygov.in</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/downloads-37">Downloads</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase font-weight-bold text-center">
+                      <strong>Contact</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>
+            <i class="fa fa-home mr-3"></i> &nbsp;&nbsp;NIELIT Bhawan, Plot No. 3, PSP Pocket, Sector-8, Dwarka, New Delhi-110077
+          </p>
+          <p>
+            <i class="fa fa-envelope mr-3"></i> &nbsp;&nbsp;contact@nielit.gov.in
+          </p>
+          <p>
+            <i class="fa fa-phone mr-3"></i> &nbsp;&nbsp;+91-11-2436 3330
+          </p>
+          <p>
+            <i class="fa fa-print mr-3"></i> &nbsp;&nbsp;1800116511</p>
+        </div>
+      </div>
+    </div>
+    <hr class="hrfooter" />
+    <div class="footer-copyright py-3 text-center">
+      <i style="color:grey;">© 2018 Copyright:</i> SIH2018
+      </a>
+    </div>
+    <br/>
+  </footer>
+{% if error %}
+    <script type="text/javascript">
+      var answer = confirm ("Please fill Applicant Details first.")
+      
+        window.location.href = "/applicantdetails";
+  </script>
+{% endif %}
+</body>
+
+</html>

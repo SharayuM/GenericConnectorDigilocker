@@ -1,0 +1,51 @@
+<html>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+<div class="share_fm_dl" id="attachment_poi "></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+                                                src='https://devservices.digitallocker.gov.in/requester/api/2/dl.js'
+                                                id="dlshare"
+                                                data-app-id='SRS'
+                                                data-app-hash='{{ hash }}'
+                                                time-stamp='{{ timestamp }}'
+                                                data-callback='myCallback'>
+                                        </script>
+                                       <script>
+                                        function myCallback(arg) {
+                                                    var arg=JSON.parse(arg);
+                                                    var returnmsg;
+                                                     $.ajax({
+                                                            type : "POST",
+                                                            url : "/uploaddoc_generic",
+                                                            data : arg,
+                                                            async: false,
+                                                            success : function(data) {
+                                                                var ret=JSON.parse(data);
+                                                                if(ret["verified"] == "false")
+                                                                {
+                                                                    alert("Cannot be considered as verified document");
+                                                                    returnmsg="FAILURE";
+                                                                }
+                                                                else
+                                                                {
+
+                                                                    returnmsg = "SUCCESS";
+                                                                }
+                                                            },
+                                                            error : function(data) {
+                                                            alert("Some error occured.");
+                                                            returnmsg = "FAILURE";
+                                                        }
+                                                    });
+                                                    //alert(returnmsg);
+                                                    return returnmsg;
+                                                    }
+                                            </script>
+
+</body>
+</html>

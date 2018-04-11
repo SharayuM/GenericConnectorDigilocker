@@ -1,0 +1,119 @@
+.our-team {
+  text-align: center;
+}
+
+.our-team .pic {
+  position: relative;
+  overflow: hidden;
+}
+
+.our-team .pic:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, rgba(141, 216, 242, 0.5), rgba(16, 116, 151, 0.4));
+  opacity: 0;
+  transition: all 0.4s ease 0s;
+}
+
+.our-team:hover .pic:after {
+  opacity: 1;
+}
+
+.our-team .pic img {
+  width: 100%;
+  height: auto;
+  transition: all 0.4s ease 0s;
+}
+
+.our-team:hover img {
+  transform: scale(1.2, 1.2);
+}
+
+.our-team .social-link {
+  width: 80%;
+  position: absolute;
+  top: 80%;
+  left: 10%;
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+  border: 2px solid #fff;
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 1;
+}
+
+.our-team:hover .social-link {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.4s ease 0s;
+}
+
+.our-team .social-link li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.our-team .social-link li a {
+  display: inline-block;
+  font-size: 19px;
+  color: #fff;
+}
+
+.our-team .social-link li a:hover {
+  text-decoration: none;
+}
+
+.our-team .post {
+  display: block;
+  font-size: 12px;
+  color: #808080;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.our-team .team-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 8px 0 0 0;
+}
+
+.our-team .team-title:after {
+  content: "";
+  display: block;
+  width: 20%;
+  margin: 15px auto;
+  border-bottom: 1px solid #222;
+}
+
+.our-team .description {
+  font-size: 14px;
+  color: #666;
+  line-height: 25px;
+}
+
+a.fa.fa-facebook:hover{
+  color: #7894D0;
+}
+
+a.fa.fa-google-plus:hover{
+  color: #db3236;
+}
+
+a.fa.fa-twitter:hover{
+  color: #00aced;
+}
+
+@media screen and (max-width: 990px) {
+  .our-team {
+    margin-bottom: 25px;
+  }
+}

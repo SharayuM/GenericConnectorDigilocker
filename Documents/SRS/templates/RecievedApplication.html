@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SIH 2018</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/general.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <script src="/static/js/navbar.js"></script>
+  <script src="/static/js/recievedapp.js"></script>
+</head>
+
+<body>
+<div id="wrapper">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png" width="150" height="30" alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+        
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/adminpage" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
+          <li><a href="#" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br/>
+  <br/>
+
+  <div class="container">
+    <div class="panel-group">
+      <div class="panel panel-success">
+        <div class="panel-heading">Applied Jobs for {{ job.job_name}}</div>
+          <div class="panel-body">
+          {% if application %}
+            <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Applicant Name</th>
+        <th>Date Of Application</th>
+        <th>Current Status</th>
+        <th>Change Status</th>
+        <th>View Document</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for app in application %}
+      <tr>
+        <td>{{ app.user_name_id }}</td>
+        <td>{{ app.dof_app }}</td>
+        <td>
+            {% if app.status == 0 %}Rejected
+            {% elif app.status == 1 %}Application Received
+            {% elif app.status == 2 %}Under Review
+            {% else %}Accepted{% endif %}
+
+        </td>
+        <td>
+            <form method="post" enctype="multipart/form-data" action="/changestatus">
+                {% csrf_token %}
+                <input type = "hidden" name = "username" value = "{{app.user_name_id}}"/>
+                <input type = "hidden" name = "id" value = "{{job.job_id}}"/>
+                <select name='PreviousReceiver' onchange='if(this.value != 0) { this.form.submit(); }'><option value='Application Received' selected>Application Received</option><option value='Under Review'>Under Review</option><option value='Shortlisted'>Shortlisted</option><option value='Rejected'>Rejected</option></select>
+            </form>
+        </td>
+        <td>
+            <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Documents
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/retrievedoc/{{app.user_name_id}}/1">Aadhar Card</a></li>
+    <li><a href="/retrievedoc/{{app.user_name_id}}/2">Pan Card</a></li>
+    <li><a href="/retrievedoc/{{app.user_name_id}}/3">SSC Marksheet</a></li>
+    <li><a href="/retrievedoc/{{app.user_name_id}}/4">HSC Marksheet</a></li>
+  </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+          {% else %}
+          <p style="text-align:center;">No Jobs Availabe</p>
+  <hr/>
+  <p style="text-align:center;">Click Here to <a style="color:#000;" href="/adminpage"><strong>Add A Job</strong></a></p>
+          {% endif %}
+</div>
+</div>
+</div>
+</div>
+
+
+  <footer class="page-footer font-small unique-color-dark pt-0">
+    <div class="container mt-5 mb-4 text-md-left">
+      <div class="row mt-3">
+        <br/>
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>SIH 2018</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Products</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://www.nielit.gov.in/content/acts-rules">Act and Rules</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/mou-industry-academic-institutions-universities">MoUs</a>
+          </p>
+          <p>
+            <a href="JobOpenings.html">Opportunities</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/node/2361">Grievance</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/right-information-1">RTI</a>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Useful links</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://meity.gov.in/">meity.gov.in</a>
+          </p>
+          <p>
+            <a href="https://india.gov.in/">india.gov.in</a>
+          </p>
+          <p>
+            <a href="https://www.mygov.in/">mygov.in</a>
+          </p>
+          <p>
+            <a href="https://mail.gov.in/iwc_static/c11n/allDomain/layout/login_gov2.jsp?lang=en-US&3.0.1.2.0_15121607&svcs=abs,mail,smime,calendar,c11n">mail.mygov.in</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/downloads-37">Downloads</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase font-weight-bold text-center">
+                      <strong>Contact</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>
+            <i class="fa fa-home mr-3"></i> &nbsp;&nbsp;NIELIT Bhawan, Plot No. 3, PSP Pocket, Sector-8, Dwarka, New Delhi-110077
+          </p>
+          <p>
+            <i class="fa fa-envelope mr-3"></i> &nbsp;&nbsp;contact@nielit.gov.in
+          </p>
+          <p>
+            <i class="fa fa-phone mr-3"></i> &nbsp;&nbsp;+91-11-2436 3330
+          </p>
+          <p>
+            <i class="fa fa-print mr-3"></i> &nbsp;&nbsp;1800116511</p>
+        </div>
+      </div>
+    </div>
+    <hr class="hrfooter" />
+    <div class="footer-copyright py-3 text-center">
+      <i style="color:grey;">© 2018 Copyright:</i> SIH2018
+      </a>
+    </div>
+    <br/>
+  </footer>
+</div>
+</body>
+{% if error == 1%}
+    <script LANGUAGE='JavaScript'>
+              window.alert('Could not update.');
+    </script>
+{% endif %}
+<style type="text/css">
+  select{
+    background-color: transparent;
+    padding: 5px;
+  }
+  .panel-success>.panel-heading{
+    background-color: #9bb8c2;
+    color: #081c24;
+    border-color: #d6e9c6;
+  }
+</style>
+
+</html>

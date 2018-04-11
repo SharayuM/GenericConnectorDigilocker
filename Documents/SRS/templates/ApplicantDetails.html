@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SIH 2018:Application Detals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/general.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <script src="/static/js/navbar.js"></script>
+  <link rel="stylesheet" href="/static/css/applicationdetails.css">
+  <script src="/static/js/index.js"></script>
+  <script src="js/redirect.js"></script>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png" width="150" height="30" alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="/index">Home</a></li>
+          <li class="active"><a href="/applicantdetails">Applicant Details</a></li>
+          <li><a href="/jobopenings">Job Openings</a></li>
+     <li><a href="/status">Status</a></li>
+          <li><a href="/meetourteam">About Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           {% if uname %}
+          <li><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> {{ uname }}</a></li>
+
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                {% else %}
+                          <li><a href="#" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+
+                                <li><a href="#" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <h1>Fill out the Application Details</h1>
+      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+          <div class="list-group" style="margin-top:0 px">
+            <a href="#" class="list-group-item active text-center">
+                  APPLICATION DETAILS
+                </a>
+            <a href="#" class="list-group-item text-center">
+                      UPLOAD AADHAAR CARD
+                </a>
+            <a href="#" class="list-group-item text-center">
+                      UPLOAD PAN CARD
+            </a>
+            <a href="#" class="list-group-item text-center">
+                      UPLOAD SSC MARKSHEET
+            </a>
+            <a href="#" class="list-group-item text-center">
+                      UPLOAD HSC MARKSHEET
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+          <div class="bhoechie-tab-content active">
+
+            <h2 style="text-align: center;">Application Details</h2>
+            <hr/>
+            <br/>
+            <left>
+              {% if data %}
+
+              <form class="form-inline" role="form" method="POST" enctype="multipart/form-data" action="/savedata">
+                
+                {% csrf_token %}
+
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>First Name:  </label>
+                        </td>
+                        <td>
+                          <input value="{{ data.first_name }}" type="text" class="form-control" name="FirstName" placeholder="First Name" required>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Middle  Name:  </label>
+                        </td>
+                        <td>
+                          <input type="text" value="{{ data.middle_name }}" class="form-control" name="MiddleName" placeholder="Middle Name" required>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Last Name:  </label>
+                        </td>
+                        <td>
+                          <input type="text" value="{{ data.last_name }}" class="form-control" name="LastName" placeholder="Last Name" required>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Permanent<br/> Address:  </label>
+                        </td>
+                        <td>
+                          <textarea class="form-control"  name="Address"  placeholder="Address" required>{{ data.address }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Country:  </label>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control"  value="India" name="Country" placeholder="Country" required disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>State:  </label>
+                        </td>
+                        <td>
+                          <select name="State"  class="form-control">
+                          <option value="">------------Select State------------</option>
+                          <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                          <option value="Andhra Pradesh">Andhra Pradesh</option>
+                          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                          <option value="Assam">Assam</option>
+                          <option value="Bihar">Bihar</option>
+                          <option value="Chandigarh">Chandigarh</option>
+                          <option value="Chhattisgarh">Chhattisgarh</option>
+                          <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                          <option value="Daman and Diu">Daman and Diu</option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Goa">Goa</option>
+                          <option value="Gujarat">Gujarat</option>
+                          <option value="Haryana">Haryana</option>
+                          <option value="Himachal Pradesh">Himachal Pradesh</option>
+                          <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                          <option value="Jharkhand">Jharkhand</option>
+                          <option value="Karnataka">Karnataka</option>
+                          <option value="Kerala">Kerala</option>
+                          <option value="Lakshadweep">Lakshadweep</option>
+                          <option value="Madhya Pradesh">Madhya Pradesh</option>
+                          <option value="Maharashtra">Maharashtra</option>
+                          <option value="Manipur">Manipur</option>
+                          <option value="Meghalaya">Meghalaya</option>
+                          <option value="Mizoram">Mizoram</option>
+                          <option value="Nagaland">Nagaland</option>
+                          <option value="Orissa">Orissa</option>
+                          <option value="Pondicherry">Pondicherry</option>
+                          <option value="Punjab">Punjab</option>
+                          <option value="Rajasthan">Rajasthan</option>
+                          <option value="Sikkim">Sikkim</option>
+                          <option value="Tamil Nadu">Tamil Nadu</option>
+                          <option value="Tripura">Tripura</option>
+                          <option value="Uttaranchal">Uttaranchal</option>
+                          <option value="Uttar Pradesh">Uttar Pradesh</option>
+                          <option value="West Bengal">West Bengal</option>
+                          </select>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Experience:  </label>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" value="{{ data.experience }}" name="experience" placeholder="Experience" required>
+                        </td>
+                    </tr>
+                    <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Skills: </label>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" name="Skills" value="{{ data.skills }}" placeholder="Skills" required>
+                        </td>
+                      </div>
+                   </tr>
+                   <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Current company: </label>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" name="company" value="{{ data.current_company }}" placeholder="Company" required>
+                        </td>
+                      </div>
+                   </tr>
+                   <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Current Designation: </label>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" name="currentdesignation" value="{{ data.current_designation }}" placeholder="Current Designation" required>
+                        </td>
+                      </div>
+                   </tr>
+                   <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Current Salary: </label>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" name="CurrentSalary" value="{{ data.current_salary }}" placeholder="Current Salary" required>
+                        </td>
+                      </div>
+                   </tr>
+                   <tr>
+                      <div class="form-group radio">
+                        <td>
+                          <label>Radio: </label>
+                        </td>
+                        <td>
+                          <label><input type="radio" name="Gender" value="Male"{% ifequal data.gender "Male"%} checked="checked" {% endifequal %} required> Male&nbsp;&nbsp;</label>
+                          <label><input type="radio" name="Gender" value="Female"{% ifequal data.gender "Female"%} checked="checked" {% endifequal %} required> Female&nbsp;&nbsp;</label>
+                          <label><input type="radio" name="Gender" value="Others" {% ifequal data.gender "Others"%} checked="checked" {% endifequal %} required> Others</label>
+                        </td>
+                      </div>
+                   </tr>
+{#                   <tr>#}
+{#                      <div class="form-group">#}
+{#                      {% comment %}  <td>#}
+{#                          <label>Resume: </label>#}
+{#                          <label for="file-upload-Resume" class="custom-file-upload">#}
+{#                          <i class="fa fa-cloud-upload"> </i> Browse#}
+{#                          </label>#}
+{#                        </td>{% endcomment %}#}
+{#                        <td>#}
+{#                          <input id="file-upload-Resume" type="file"  name="Resume"/>#}
+{#                        </td>#}
+{#                      </div>#}
+{#                   </tr>#}
+                   <tr>
+                      <div class="form-group">
+                        <td>
+                          <label>Profile Pic: </label>
+                          <label for="file-upload-ProfilePic" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload"> </i> Browse
+                          </label>
+                        </td>
+                        <td>
+                          <input id="file-upload-ProfilePic" type="file"  name="profilephoto"/>
+                          <img id="ProfilePic" src="img/nopreview.png" style="height:80px;width:80px;"/>
+                        </td>
+                      </div>
+                   </tr>
+                  </tbody>
+                </table>
+
+                <br/><br/>
+                <hr/>
+                <button type="submit" class="btn btn-default" name="SubmitDetails" style="background-color: #073F54;color:#fff;margin-left: 200px; width: 150px">Submit</button>
+                {% if saved %}Saved!!{% endif %}
+                <br/><br/>
+                </form>
+                {% else %}
+                <form class="form-inline" role="form" method="POST" enctype="multipart/form-data" action="/savedata">
+                {% csrf_token %}
+                <table class="table">
+                  <tbody>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>First Name:  </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="FirstName" placeholder="First Name" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Middle Name: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="MiddleName" placeholder="Middle Name" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Last Name: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="LastName" placeholder="Last Name" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Permanent <br/>Address: </label>
+                    </td>
+                    <td>
+                      <textarea class="form-control" name="Address" placeholder="Address" style="width: 67%" required></textarea>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Country: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="Country" placeholder="Country" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>State: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="State" placeholder="State" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Experience: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="experience" placeholder="Experience" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Skills: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="Skills" placeholder="Skills" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Current company: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="company" placeholder="Company" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Current Designation: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="currentdesignation" placeholder="Current Designation" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Current Salary: </label>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" name="CurrentSalary" placeholder="Current Salary" required>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="radio">
+                    <td>
+                       <b>Gender:</b>
+                    </td>
+                    <td>
+                      <label><input type="radio" name="Gender" value="Male" required> Male&nbsp;&nbsp;</label>
+                      <label><input type="radio" name="Gender" value="Female" required> Female&nbsp;&nbsp;</label>
+                      <label><input type="radio" name="Gender" value="Others" required> Others</label>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Resume: </label>
+                    </td>
+                    <td>
+                      <label for="file-upload-Resume" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload"> </i> Browse
+                      </label>
+                      <input id="file-upload-Resume" type="file"  name="Resume"/>
+                    </td>
+                    </div>
+                   </tr>
+                   <tr>
+                    <div class="form-group">
+                    <td>
+                      <label>Profile Pic: </label>
+                    </td>
+                    <td>
+                      <label for="file-upload-ProfilePic" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"> </i> Browse
+                      </label>
+                      <input id="file-upload-ProfilePic" type="file"  name="profilephoto"/>
+                      <img id="ProfilePic" src="img/nopreview.png" style="height:80px;width:80px;"/>
+                    </td>
+                    </div>
+                   </tr>
+
+                 </tbody>
+                </table>
+                <br/><br/>
+                <hr/>
+                <button type="submit" class="btn btn-default" name="SubmitDetails" style="background-color: #073F54;color:#fff;margin-left: 200px; width: 150px">Submit</button>
+                <br/><br/>
+              </form>
+                {% endif %}
+            </left>
+          </div>
+          <div class="bhoechie-tab-content">
+            <h2 style="text-align: center">Upload Aadhar Card</h2>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label>Aadhar: &ensp;&ensp;&ensp;</label>
+                  <label for="file-upload-Aadhar" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse
+                  </label>{% if aadhaar and aadhaar != 0 %}<a href="/file/1">   click to see your uploaded aadhaar</a>{% endif %}
+                  <input id="file-upload-Aadhar" type="file" name="aadhaarcard"/>
+                  <br/>
+                  <img id="Aadhar" src="/static/media/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitaadhaar" style="text-align:center;margin-left:100px;background-color: #073F54;color:#fff;width: 150px">Upload</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi "></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="bhoechie-tab-content">
+            <h2 style="text-align: center">Upload Pan Card</h2>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label>Pan Card: &ensp;&ensp;&ensp;</label>
+                  <label for="file-upload-Pan" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i>Browse
+                  </label>{% if pancard and pancard != 0 %}<a href="/file/2">   click to see your uploaded pancard</a>{% endif %}
+                  <input id="file-upload-Pan" type="file"  name="pancard"/>
+                  <br/>
+                  <img id="Pan" src="/static/media/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitpan" style="text-align:center;margin-left:100px;background-color: #073F54;color:#fff;width: 150px">Upload</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="bhoechie-tab-content">
+            <h2 style="text-align: center">Upload SSC Marksheet</h2>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label>SSC Marksheet: &ensp;&ensp;&ensp;</label>
+                  <label for="file-upload-SSC" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse
+                  </label>{% if ssccard and ssccard != 0 %}<a href="/file/3">   click to see your uploaded ssccard</a>{% endif %}
+                  <input id="file-upload-SSC" type="file"  name="ssccard" />
+                  <br/>
+                  <img id="SSC" src="/static/media/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitssc" style="text-align:center;margin-left:100px;background-color: #073F54;color:#fff;width: 150px">Upload</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="bhoechie-tab-content">
+            <h2 style="text-align: center">Upload HSC Marksheet</h2>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label>HSC Marksheet: &ensp;&ensp;&ensp;</label>
+                  <label for="file-upload-HSC" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse
+                  </label>{% if hsccard and hsccard != 0 %}<a href="/file/4">   click to see your uploaded hsccard</a>{% endif %}
+                  <input id="file-upload-HSC" type="file"  name="hsccard"/>
+                  <br/>
+                  <img id="HSC" src="/static/media/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submithsc" style="text-align:center;margin-left:100px;background-color: #073F54;color:#fff;width: 150px">Upload</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer font-small unique-color-dark pt-0 fixed-bottom">
+    <div class="container mt-5 mb-4 text-md-left">
+      <div class="row mt-3">
+        <br/>
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>SIH 2018</strong>
+                  </h6>
+          <hr class="hrfooter" />
+<p>Smart India Hackathon 2018 is a non-stop digital product development competition, where problems are posed to technology students for innovative solutions</p>        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Products</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://www.nielit.gov.in/content/acts-rules" class="ahref">Act and Rules</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/mou-industry-academic-institutions-universities" class="ahref">MoUs</a>
+          </p>
+          <p>
+            <a href="JobOpenings.html0" class="ahref">Opportunities</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/node/2361" class="ahref" class="ahref">Grievance</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/right-information-1" class="ahref">RTI</a>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Useful links</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://meity.gov.in/" class="ahref">meity.gov.in</a>
+          </p>
+          <p>
+            <a href="https://india.gov.in/" class="ahref">india.gov.in</a>
+          </p>
+          <p>
+            <a href="https://www.mygov.in/" class="ahref">mygov.in</a>
+          </p>
+          <p>
+            <a href="https://mail.gov.in/iwc_static/c11n/allDomain/layout/login_gov2.jsp?lang=en-US&3.0.1.2.0_15121607&svcs=abs,mail,smime,calendar,c11n" class="ahref">mail.mygov.in</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/downloads-37" class="ahref">Downloads</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase font-weight-bold text-center">
+                      <strong>Contact</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>
+            <i class="fa fa-home mr-3"></i> &nbsp;&nbsp;NIELIT Bhawan, Plot No. 3, PSP Pocket, Sector-8, Dwarka, New Delhi-110077
+          </p>
+          <p>
+            <i class="fa fa-envelope mr-3"></i> &nbsp;&nbsp;contact@nielit.gov.in
+          </p>
+          <p>
+            <i class="fa fa-phone mr-3"></i> &nbsp;&nbsp;+91-11-2436 3330
+          </p>
+          <p>
+            <i class="fa fa-print mr-3"></i> &nbsp;&nbsp;1800116511</p>
+        </div>
+      </div>
+    </div>
+    <hr class="hrfooter" />
+    <div class="footer-copyright py-3 text-center">
+      <i style="color:grey;">© 2018 Copyright:</i> SIH2018
+      </a>
+    </div>
+    <br/>
+  </footer>
+
+</body>
+<style>
+    element {
+    width: 40%;
+}
+</style>
+<script>
+function readURLProfilePic(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#ProfilePic').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLAadhar(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#Aadhar').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLPan(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#Pan').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLSSC(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#SSC').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLHSC(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#HSC').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#file-upload-ProfilePic").change(function() {
+  readURLProfilePic(this);
+});
+$("#file-upload-Aadhar").change(function() {
+  readURLAadhar(this);
+});
+$("#file-upload-Pan").change(function() {
+  readURLPan(this);
+});
+$("#file-upload-SSC").change(function() {
+  readURLSSC(this);
+});
+$("#file-upload-HSC").change(function() {
+  readURLHSC(this);
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+                                        <script type="text/javascript"
+                                                src='https://devservices.digitallocker.gov.in/requester/api/2/dl.js'
+                                                id="dlshare"
+                                                data-app-id='SRS'
+                                                data-app-hash='{{ hash }}'
+                                                time-stamp='{{ timestamp }}'
+                                                data-callback='myCallback'>
+                                        </script>
+                                       <script>
+                                        function myCallback(arg) {
+                                                    var arg=JSON.parse(arg);
+                                                    var returnmsg;
+                                                     $.ajax({
+                                                            type : "POST",
+                                                            url : "/uploaddoc",
+                                                            data : arg,
+                                                            async: false,
+                                                            success : function(data) {
+                                                                var ret=JSON.parse(data);
+                                                                if(ret["verified"] == "false")
+                                                                {
+                                                                    alert("Cannot be considered as verified document");
+                                                                    returnmsg="FAILURE";
+                                                                }
+                                                                else
+                                                                {
+
+                                                                    returnmsg = "SUCCESS";
+                                                                }
+                                                            },
+                                                            error : function(data) {
+                                                            alert("Some error occured.");
+                                                            returnmsg = "FAILURE";
+                                                        }
+                                                    });
+                                                    //alert(returnmsg);
+                                                    return returnmsg;
+                                                    }
+                                            </script>
+
+{% if filldetails %}
+    <script LANGUAGE='JavaScript'>
+              window.alert('Please complete your details');
+    </script>
+{% endif %}
+</html>

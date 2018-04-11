@@ -1,0 +1,56 @@
+.panel-default>.panel-heading {
+    color: #081c24;
+    background-color: #9bb8c2;
+    border-color: #d6e9c6;
+}
+
+.form-control {
+    margin: 0 auto;
+    background: transparent;
+    border: none;
+    border: 1px solid #000000;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    min-width: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    width: auto;
+}
+
+.form-inline > * {
+  text-align: center;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: 260px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.textarea{
+  width: 90%;
+  text-align: left;
+  margin-left: -40px;
+  background: transparent;
+  border: none;
+  border: 1px solid #000000;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  min-width: 0;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  border-radius: 5px;
+}
+hr{
+  margin-top: 10px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(7,63,84,0.9), rgba(0, 0, 0, 0));
+}
+
+.ahref{
+  color: #081c24;
+  font-weight: 700;
+  margin-left: 15px;
+}

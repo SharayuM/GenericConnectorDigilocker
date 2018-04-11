@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SIH 2018:Application Detals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/general.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <script src="/static/js/navbar.js"></script>
+  <link rel="stylesheet" href="/static/css/applicationdetails.css">
+  <script src="/static/js/index.js"></script>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png" width="150" height="30" alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="/index">Home</a></li>
+          <li class="active"><a href="/applicantdetails">Applicant Details</a></li>
+          <li><a href="/status">Status</a></li>
+          <li><a href="/jobopenings">Job Openings</a></li>
+         <li><a href="/viewsavejob">Saved Jobs</a></li>
+          <li><a href="/meetourteam">About Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           {% if uname %}
+          <li><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> {{ uname }}</a></li>
+
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                {% else %}
+                          <li><a href="#" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+
+                                <li><a href="#" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Application Details</a>
+        </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+              {% if data %}
+              <form class="form-inline" role="form" method="POST" enctype="multipart/form-data" action="/savedata">
+                {% csrf_token %}
+                <input type="text" value="{{ data.first_name }}" class="form-control" name="FirstName" placeholder="First Name" required><br/><br/>
+                <input type="text" value="{{ data.middle_name }}" class="form-control" name="MiddleName" placeholder="Middle Name" required><br/><br/>
+                <input type="text" value="{{ data.last_name }}" class="form-control" name="LastName" placeholder="Last Name" required><br/><br/>
+                <textarea class="form-control" name="Address" placeholder="Address" style="width: 260px" required>{{ data.address }}</textarea><br/><br/>
+                <input type="text"  value="{{ data.country }}" class="form-control" name="Country" placeholder="Country" required><br/><br/>
+                <input type="text" class="form-control" name="State" placeholder="State" required><br/><br/>
+                <input type="text" class="form-control" name="experience" placeholder="Experience" required><br/><br/>
+                <input type="text" class="form-control" name="Skills" placeholder="Skills" required><br/><br/>
+                <input type="text" class="form-control" name="currentdesignation" placeholder="Current Designation" required><br/><br/>
+                <input type="text" class="form-control" name="CurrentSalary" placeholder="Current Salary" required>               <br/><br/>
+                <label><input type="radio" name="Gender" value="Male" {% ifequal data.gender "Male"%} checked="checked" {% endifequal %}  required> Male&nbsp;&nbsp;</label>
+                <label><input type="radio" name="Gender" value="Female" {% ifequal data.gender "Female"%} checked="checked" {% endifequal %} required> Female&nbsp;&nbsp;</label>
+                <label><input type="radio" name="Gender" value="Others" {% ifequal data.gender "Others"%} checked="checked" {% endifequal %} required> Others</label><br/><br/>
+                <label for="file-upload-Resume" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"> </i> Browse Resume
+                </label>
+                <input id="file-upload-Resume" type="file"  name="Resume"/><br/><br/>
+                <label for="file-upload-ProfilePic" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"> </i> Browse Profile Pic
+                </label>
+                <input id="file-upload-ProfilePic" type="file"  name="profilephoto"/>
+                <img id="ProfilePic" src="img/nopreview.png" style="height:80px;width:80px;"/><br/><br/>
+                <button type="submit" class="btn btn-default" name="SubmitDetails" style="background-color: #073F54;color:#fff;width: 150px">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Upload Aadhar Card</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+              <h4 style="text-align: center">Upload Aadhar Card</h4>
+              <hr/>
+              <br/>
+              <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+               {% csrf_token %}
+              <input type='hidden' name='csrfmiddlewaretoken' value='HL0vqAqSY5nFlCOU2APDX2xzgtFK133rD6BFYkV4nr9a2BV7MHui27y6K4DynPrR' />
+              <div class="form-group">
+                  <label>Aadhar: </label>
+                  <label for="file-upload-Aadhar" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse
+                  </label>
+                  <input id="file-upload-Aadhar" type="file" name="aadhaarcard"/>
+                  <br/>
+                  <img id="Aadhar" src="img/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitaadhaar" style="text-align:center;background-color: #073F54;color:#fff;width: 150px">Upload Aadhar Card</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Upload Pan Card</a>
+            </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+              <h4 style="text-align: center">Upload Pan Card</h4>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type='hidden' name='csrfmiddlewaretoken' value='HL0vqAqSY5nFlCOU2APDX2xzgtFK133rD6BFYkV4nr9a2BV7MHui27y6K4DynPrR' />
+              <div class="form-group">
+                  <label>Pan Card: </label>
+                  <label for="file-upload-Pan" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i>Browse
+                  </label>
+                  <input id="file-upload-Pan" type="file"  name="pancard"/>
+                  <br/>
+                  <img id="Pan" src="img/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitpan" style="text-align:center;background-color: #073F54;color:#fff;width: 150px">Upload Pan Card</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Upload SSC Marksheet</a>
+            </h4>
+          </div>
+          <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+              <h4 style="text-align: center">Upload SSC Marksheet</h4>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+                <input type='hidden' name='csrfmiddlewaretoken' value='HL0vqAqSY5nFlCOU2APDX2xzgtFK133rD6BFYkV4nr9a2BV7MHui27y6K4DynPrR' />
+                <div class="form-group">
+                  <label>SSC Marksheet: </label>
+                  <label for="file-upload-SSC" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse SSC Marksheet
+                  </label>
+                  <input id="file-upload-SSC" type="file"  name="ssccard" />
+                  <br/>
+                  <img id="SSC" src="img/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submitssc" style="text-align:center;background-color: #073F54;color:#fff;width: 180px">Upload SSC Marksheet</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Upload HSC Marksheet</a>
+            </h4>
+          </div>
+          <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+              <h4 style="text-align: center">Upload HSC Marksheet</h4>
+            <hr/>
+            <br/>
+            <form class="box" method="post" action="/savedata" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type='hidden' name='csrfmiddlewaretoken' value='HL0vqAqSY5nFlCOU2APDX2xzgtFK133rD6BFYkV4nr9a2BV7MHui27y6K4DynPrR' />
+              <div class="form-group">
+                  <label>HSC Marksheet: </label>
+                  <label for="file-upload-HSC" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"> </i> Browse HSC Marksheet
+                  </label>
+                  <input id="file-upload-HSC" type="file"  name="hsccard"/>
+                  <br/>
+                  <img id="HSC" src="img/DocumentPreview.png" class="image"/>
+                  <br/><br/>
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-default" name="submithsc" style="text-align:center;background-color: #073F54;color:#fff;width: 150px">Upload HSC Card</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="share_fm_dl" id="attachment_poi"></div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+<style type="text/css">
+.image{
+  width: 100%;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+</style>
+
+<script>
+function readURLProfilePic(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#ProfilePic').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLAadhar(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#Aadhar').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLPan(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#Pan').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLSSC(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#SSC').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function readURLHSC(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#HSC').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#file-upload-ProfilePic").change(function() {
+  readURLProfilePic(this);
+});
+$("#file-upload-Aadhar").change(function() {
+  readURLAadhar(this);
+});
+$("#file-upload-Pan").change(function() {
+  readURLPan(this);
+});
+$("#file-upload-SSC").change(function() {
+  readURLSSC(this);
+});
+$("#file-upload-HSC").change(function() {
+  readURLHSC(this);
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+                                        <script type="text/javascript"
+                                                src='https://devservices.digitallocker.gov.in/requester/api/2/dl.js'
+                                                id="dlshare"
+                                                data-app-id='SRS'
+                                                data-app-hash='{{ hash }}'
+                                                time-stamp='{{ timestamp }}'
+                                                data-callback='myCallback'>
+                                        </script>
+                                       <script>
+                                        function myCallback(arg) {
+                                                    var arg=JSON.parse(arg)
+
+                                                     $.ajax({
+                                                            type : "POST",
+                                                            url : "uploaddoc",
+                                                            data : arg,
+                                                            async: false,
+                                                            success : function(data) {
+                                                                returnmsg = "SUCCESS";
+                                                            },
+                                                            error : function(data) {
+                                                            alert("Some error occured.");
+                                                            returnmsg = "FAILURE";
+                                                        }
+                                                    });
+                                                    //alert(returnmsg);
+                                                    return returnmsg;
+                                                    }
+                                            </script>
+
+{% if filldetails %}
+    <script LANGUAGE='JavaScript'>
+              window.alert('Please complete your details');
+    </script>
+{% endif %}
+</html>

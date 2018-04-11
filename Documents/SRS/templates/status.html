@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <title>SIH 2018:Job Status</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    <link rel="stylesheet" href="/static/css/general.css">
+    <link rel="stylesheet" href="/static/css/status.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <script src="/static/js/toolpit.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png"  alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+              <li><a href="/index">Home</a></li>
+              <li><a href="/applicantdetails">Applicant Details</a></li>
+              <li class="active"><a href="/status">Status</a></li>
+              <li><a href="/jobopenings">Job Openings</a></li>
+              <li><a href="/viewsavejob">Saved Jobs</a></li>
+              <li><a href="/meetourteam">About Us</a></li>
+              </ul>
+        <ul class="nav navbar-nav navbar-right">
+           {% if username %}
+          <li><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> {{ username }}</a></li>
+
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                {% else %}
+                          <li><a href="#" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+
+                                <li><a href="#" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h2>Applied Job Status</h2>
+    <div class="panel-group">
+    {% if applied %}
+      <div class="panel panel-success">
+        <div class="panel-heading">Applied Jobs</div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Job Name</th>
+                <th>Date Of Application</th>
+                <th>Status</th>
+                <th>Cancel Application</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for job in applied %}
+                {% for id in all_jobs %}
+                    {% if id.job_id == job.job_id_id %}
+              <tr>
+                <td>
+                  <a href="#" data-toggle="collapse" data-target="#{{ id.job_id }}" class="ahref">
+                              {{ id.job_name }}
+                    <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                  </a>
+                  <div id="{{ id.job_id }}" class="collapse">
+                    <hr/>
+                      {{ id.job_description }}
+                  </div>
+                </td>
+                <td>{{ job.dof_app }}</td>
+                <td>
+                  <a href="#" data-toggle="collapse" data-target="#S{{ job.job_id_id }}" class="ahref">
+                      {% if job.status == 0 %}Rejected{% endif %}
+                      {% if job.status == 1 %}Application Submitted{% endif %}
+                      {% if job.status == 2 %}Application Under Review{% endif %}
+                      {% if job.status == 3 %}Accepted{% endif %}
+                      <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                  </a>
+                  <div id="S{{ job.job_id_id }}" class="collapse">
+                    <hr/><ol class="ProgressBar" data-ProgressBar-steps="3">
+                    {% if job.status == 1 %}
+                        <li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Submitted"></li><!--
+                     --><li class="ProgressBar-todo" data-toggle="tooltip" data-placement="top" title="Application Under Review"></li><!--
+                     --><li class="ProgressBar-todo" data-toggle="tooltip" data-placement="top" title="Application Result: N/A"></li>{% endif %}{% if job.status == 2%}<li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Submitted"></li><!--
+                     --><li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Under Review"></li><!--
+                     --><li class="ProgressBar-todo" data-toggle="tooltip" data-placement="top" title="Application Result: N/A"></li>{% endif %}{% if job.status == 3%}<li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Submitted"></li><!--
+                     --><li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Under Review"></li><!--
+                     --><li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Accepted"></li>{% endif %}{% if job.status == 0%}<li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Submitted"></li><!--
+                     --><li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Under Review"></li><!--
+                     --><li class="ProgressBar-done" data-toggle="tooltip" data-placement="top" title="Application Rejected"></li>{% endif %}
+                    </ol>
+                  </div>
+                </td>
+
+                <td>
+                  <a href="/cancel/2/{{ id.job_id }}"><button class="btn btn-primary" ><span class = "glyphicon glyphicon-tag	Try it
+"></span> Cancel Application</button></a>
+                </td>
+              </tr>
+            {% endif %}
+                    {% endfor %}
+            {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+{% else %}
+      <div class="panel panel-danger">
+        <div class="panel-heading">No Jobs Applied</div>
+        <div class="panel-body">
+          <h1>Sorry No Jobs Applied</h1>
+            <hr style="margin:30px;"/>
+          <p><a href = "/jobopenings">Click Here</a> to See current Job Openings</p>
+        </div>
+      </div>
+        {% endif %}
+    </div>
+  </div>
+
+  <footer class="page-footer font-small unique-color-dark pt-0 fixed-bottom">
+      <div class="container mt-5 mb-4 text-md-left">
+        <div class="row mt-3">
+          <br/>
+          <div class="col-md-3 col-lg-4 col-xl-3 mb-4 text-center">
+            <h6 class="text-uppercase font-weight-bold">
+                        <strong>SIH 2018</strong>
+                    </h6>
+            <hr class="hrfooter" />
+            <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+            <h6 class="text-uppercase font-weight-bold">
+                        <strong>Products</strong>
+                    </h6>
+            <hr class="hrfooter">
+            <p>
+              <a href="http://www.nielit.gov.in/content/acts-rules">Act and Rules</a>
+            </p>
+            <p>
+              <a href="http://www.nielit.gov.in/content/mou-industry-academic-institutions-universities">MoUs</a>
+            </p>
+            <p>
+              <a href="/jobopenings.html">Opportunities</a>
+            </p>
+            <p>
+              <a href="http://www.nielit.gov.in/node/2361">Grievance</a>
+            </p>
+            <p>
+              <a href="http://www.nielit.gov.in/content/right-information-1">RTI</a>
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+            <h6 class="text-uppercase font-weight-bold">
+                        <strong>Useful links</strong>
+                    </h6>
+            <hr class="hrfooter">
+            <p>
+              <a href="http://meity.gov.in/">meity.gov.in</a>
+            </p>
+            <p>
+              <a href="https://india.gov.in/">india.gov.in</a>
+            </p>
+            <p>
+              <a href="https://www.mygov.in/">mygov.in</a>
+            </p>
+            <p>
+              <a href="https://mail.gov.in/iwc_static/c11n/allDomain/layout/login_gov2.jsp?lang=en-US&3.0.1.2.0_15121607&svcs=abs,mail,smime,calendar,c11n">mail.mygov.in</a>
+            </p>
+            <p>
+              <a href="http://www.nielit.gov.in/content/downloads-37">Downloads</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3">
+            <h6 class="text-uppercase font-weight-bold text-center">
+                        <strong>Contact</strong>
+                    </h6>
+            <hr class="hrfooter" />
+            <p>
+              <i class="fa fa-home mr-3"></i> &nbsp;&nbsp;NIELIT Bhawan, Plot No. 3, PSP Pocket, Sector-8, Dwarka, New Delhi-110077
+            </p>
+            <p>
+              <i class="fa fa-envelope mr-3"></i> &nbsp;&nbsp;contact@nielit.gov.in
+            </p>
+            <p>
+              <i class="fa fa-phone mr-3"></i> &nbsp;&nbsp;+91-11-2436 3330
+            </p>
+            <p>
+              <i class="fa fa-print mr-3"></i> &nbsp;&nbsp;1800116511</p>
+          </div>
+        </div>
+      </div>
+      <hr class="hrfooter" />
+      <div class="footer-copyright py-3 text-center">
+        <i style="color:grey;">© 2018 Copyright:</i> SIH2018
+        </a>
+      </div>
+      <br/>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SIH 2018</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/general.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <link rel="stylesheet" href="/static/css/admin.css">
+  <script src="/static/js/navbar.js"></script>
+</head>
+
+<body>
+<div id="wrapper">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/index"><img src="/static/media/logo.png" width="150" height="30" alt="SRS"/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/adminpage" id="SignUpBtn"><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
+          <li><a href="/logout" id="SignInBtn"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Add A Job</a>
+        </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <form class="form-inline" method="POST" enctype="multipart/form-data" action="addjob" required>
+                {% csrf_token %}
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Job Name" name="JobName" required>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <select class="form-control" name="location" placeholder="Location" required>
+                    <option>Pune</option>
+                    <option>Mumbai</option>
+                    <option>Delhi</option>
+                    <option>Kolkata</option>
+                  </select>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <input type="date" class="form-control"placeholder="Date of Joining" name="DOJ" required>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-default">Add a Job</button>
+                </div>
+                  <br/><br/><br/>
+                  <a class="ahref" href="#textarea" data-toggle="collapse" required>Add Description
+                    <i class="fa fa-plus"></i>
+                  </a>
+                  <hr/>
+                  <div id="textarea" class="collapse">
+                  <textarea rows="3" class="textarea" placeholder="Job Description" name = "jobdescription"></textarea>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Job Openings</a>
+        </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+              <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Job Name</th>
+                  <th>Location</th>
+                  <th>Joining Date</th>
+                  <th>Recieved Application</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for job in alljobs %}
+                    {% if job.flag == 1%}
+                <tr>
+                  <td>
+                    <a href="#" data-toggle="collapse" data-target="#Job{{ job.job_id }}" class="ahref">{{ job.job_name }}
+                      <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                    </a>
+                    <div id="Job{{ job.job_id }}" class="collapse">
+                     <hr/>
+                     &nbsp;&nbsp;&nbsp;
+                     {{ job.job_description }}
+                    </div>
+                    <br/><br/>
+                  </td>
+                  <td>{{ job.location }}</td>
+                  <td>{{ job.date_of_joining }}</td>
+                  <td>
+                      <form class="form-inline" method="POST" enctype="multipart/form-data" action = "/recievedapplication">
+                          {% csrf_token %}
+                          <input type = "hidden" name = "jobid" value = "{{job.job_id}}"/>
+                    <!--a href="/recievedapplication/{{ job.job_id }}" target="_blank" class="btn btn-default">Check Applications</a-->
+                    <button type="submit" class="btn btn-default">Check Applications</button>
+                    </form>
+                    <form class="form-inline" method="POST" enctype="multipart/form-data" action = "/removejob">
+                          {% csrf_token %}
+                          <input type = "hidden" name = "jobid" value = "{{job.job_id}}"/>
+                    <!--a href="/recievedapplication/{{ job.job_id }}" target="_blank" class="btn btn-default">Check Applications</a-->
+                    <button type="submit" class="btn btn-default">Remove Job</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!--tr>
+                  <td>
+                    <a href="#" data-toggle="collapse" data-target="#Job2" class="ahref">Scientific Assistant-B
+                      <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                    </a>
+                    <div id="Job2" class="collapse">
+                     <hr/>
+                     &nbsp;&nbsp;&nbsp;
+                     Fake ScientistB
+                    </div>
+                    <br/><br/>
+                  </td>
+                  <td>Pune</td>
+                  <td>12/03/2018</td>
+                  <td>
+                    <a href="recievedapplication" target="_blank" class="btn btn-default">Check Applications</a>
+                  </td>
+                </tr-->
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer font-small unique-color-dark pt-0">
+    <div class="container mt-5 mb-4 text-md-left">
+      <div class="row mt-3">
+        <br/>
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>SIH 2018</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Products</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://www.nielit.gov.in/content/acts-rules">Act and Rules</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/mou-industry-academic-institutions-universities">MoUs</a>
+          </p>
+          <p>
+            <a href="/jobopenings.html">Opportunities</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/node/2361">Grievance</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/right-information-1">RTI</a>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-center">
+          <h6 class="text-uppercase font-weight-bold">
+                      <strong>Useful links</strong>
+                  </h6>
+          <hr class="hrfooter">
+          <p>
+            <a href="http://meity.gov.in/">meity.gov.in</a>
+          </p>
+          <p>
+            <a href="https://india.gov.in/">india.gov.in</a>
+          </p>
+          <p>
+            <a href="https://www.mygov.in/">mygov.in</a>
+          </p>
+          <p>
+            <a href="https://mail.gov.in/iwc_static/c11n/allDomain/layout/login_gov2.jsp?lang=en-US&3.0.1.2.0_15121607&svcs=abs,mail,smime,calendar,c11n">mail.mygov.in</a>
+          </p>
+          <p>
+            <a href="http://www.nielit.gov.in/content/downloads-37">Downloads</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase font-weight-bold text-center">
+                      <strong>Contact</strong>
+                  </h6>
+          <hr class="hrfooter" />
+          <p>
+            <i class="fa fa-home mr-3"></i> &nbsp;&nbsp;NIELIT Bhawan, Plot No. 3, PSP Pocket, Sector-8, Dwarka, New Delhi-110077
+          </p>
+          <p>
+            <i class="fa fa-envelope mr-3"></i> &nbsp;&nbsp;contact@nielit.gov.in
+          </p>
+          <p>
+            <i class="fa fa-phone mr-3"></i> &nbsp;&nbsp;+91-11-2436 3330
+          </p>
+          <p>
+            <i class="fa fa-print mr-3"></i> &nbsp;&nbsp;1800116511</p>
+        </div>
+      </div>
+    </div>
+    <hr class="hrfooter" />
+    <div class="footer-copyright py-3 text-center">
+      <i style="color:grey;">© 2018 Copyright:</i> SIH2018
+      </a>
+    </div>
+    <br/>
+  </footer>
+</div>
+{% if check %}
+    <script LANGUAGE='JavaScript'>
+              window.alert('Successfully added');
+    </script>
+{% endif %}
+{% if error %}
+    <script LANGUAGE='JavaScript'>
+              window.alert('Error in removing job');
+    </script>
+{% endif %}
+</body>
+
+</html>

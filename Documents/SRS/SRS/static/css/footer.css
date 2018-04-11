@@ -1,0 +1,31 @@
+.hrfooter {
+  margin-top: 10px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255,255,255,0.9), rgba(0, 0, 0, 0));
+}
+
+footer {
+  background-color: #073F54;
+  color: #fff;
+  height: auto;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+strong {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+a{
+  color: #fff;
+}
+
+@media only screen and (max-width: 1026px) {
+    footer {
+        bottom: none;
+        position: relative;
+    }
+}

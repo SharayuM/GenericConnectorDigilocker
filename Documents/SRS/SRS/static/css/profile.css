@@ -1,0 +1,63 @@
+input.hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+#profile-image1 {
+  cursor: pointer;
+  width: 140px;
+  height: 140px;
+  border: 2px solid #03b1ce;
+}
+
+.tital {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.bot-border {
+  border-bottom: 1px #f8f8f8 solid;
+  margin: 5px 0 5px 0
+}
+
+.panel-default>.panel-heading {
+  color: #073F54;
+  background-color: #9bb8c2;
+  border-color: #073F54;
+}
+
+.panel-default {
+  border-color: #ddd;
+  margin-top: 50px;
+  margin-left: 100px;
+  width: 900px;
+  height: 550px;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  width: 100px;
+  background-color: #9bb8c2;
+}
+
+a{
+  color: #fff;
+  background-color: #073F54;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+a:hover{
+  text-decoration: none;
+  padding: 11px;
+  color: #fff;
+}
+
+h4{
+  color: #073F54;
+}
+
+.col-sm-7{
+  font-size: 17px;
+}

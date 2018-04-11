@@ -1,0 +1,91 @@
+h1, p{
+  text-align: center;
+}
+
+.tooltip.top .tooltip-inner {
+    background-color: #c4eaf7;
+    padding: 10px;
+    color: #044358;
+}
+
+.panel-success>.panel-heading {
+    color: #081c24;
+    background-color: #9bb8c2;
+    border-color: #d6e9c6;
+}
+
+.ahref {
+  font-size: 17px;
+  color: #000;
+}
+
+a:focus,
+a:hover {
+  color: grey;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+hr {
+  margin-top: 30px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0));
+}
+ol.ProgressBar {
+   margin: 0;
+   padding: 0;
+   list-style-type none;
+   width: 80%;
+}
+
+ol.ProgressBar li {
+   display: inline-block;
+   text-align: center;
+   line-height: 1.5em;
+}
+
+ol.ProgressBar[data-ProgressBar-steps="3"] li { width: 33%; }
+
+ol.ProgressBar li.ProgressBar-done {
+   color: black;
+   border-bottom: 4px solid #326fcd;
+}
+ol.ProgressBar li.ProgressBar-todo {
+   color: silver;
+   border-bottom: 4px solid silver;
+}
+
+ol.ProgressBar li:after {
+   content: "\00a0\00a0";
+}
+ol.ProgressBar li:before {
+   position: relative;
+   bottom: -1.2em;
+   float: left;
+   left: 48%;
+   line-height: 1em;
+}
+ol.ProgressBar li.ProgressBar-done:before {
+   content: "\2713";
+   color: white;
+   background-color: #326fcd;
+   height: 2.2em;
+   width: 2.2em;
+   line-height: 2.2em;
+   border: none;
+   border-radius: 2.2em;
+}
+ol.ProgressBar li.ProgressBar-todo:before {
+   content: "\039F";
+   color: silver;
+   background-color: white;
+   font-size: 2.20em;
+   bottom: -0.6em;
+}
+
+@media only screen and (max-width: 1026px) {
+    ol.ProgressBar {
+      display: none;
+    }
+}
